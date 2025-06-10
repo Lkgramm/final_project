@@ -2,7 +2,7 @@
 name = "friends-bot"
 version = "0.1.0"
 description = "Chatbot in the style of Phoebe from Friends"
-authors = ["You <you@example.com>"]
+authors = ["Alex alexn1225@gmail.com"]
 packages = [
     { include = "app", from = "src" }
 ]

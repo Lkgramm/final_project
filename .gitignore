@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+*.egg
+*.env
+
+# Poetry
+.poetry/
+poetry.lock
+
+# Environments
+.env
+.venv
+.env.*
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+.coverage
+htmlcov/
+.cache/
+pytest_cache/
+
+# Build
+dist/
+build/

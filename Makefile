@@ -5,4 +5,4 @@ test:
 	poetry run pytest
 
 lint:
-	poetry run ruff src tests
+	poetry run ruff check src tests

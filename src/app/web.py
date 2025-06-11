@@ -4,9 +4,10 @@ from fastapi.responses import HTMLResponse
 from .models import ChatSession, Message
 from .db import SessionLocal
 from sqlalchemy.future import select
+from pathlib import Path
 
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 async def get_db():
     async with SessionLocal() as session:

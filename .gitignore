@@ -7,6 +7,8 @@ __pycache__/
 *.egg-info/
 *.egg
 *.env
+*.db
+*.db-journal
 
 # Poetry
 .poetry/

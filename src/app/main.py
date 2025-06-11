@@ -1,13 +1,15 @@
 from fastapi import FastAPI
-from .web import router as web_router
-from .api import router as api_router
+from contextlib import asynccontextmanager
 from .db import init_db
+from .api import router as api_router
+from .web import router as web_router
 
-app = FastAPI()
-
-@app.on_event("startup")
-async def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await init_db()
+    yield
 
-app.include_router(web_router)
+app = FastAPI(lifespan=lifespan)
+
 app.include_router(api_router)
+app.include_router(web_router)

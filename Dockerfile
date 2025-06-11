@@ -2,20 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /code
 
+# Сначала только зависимости
 COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip && \
     pip install poetry && \
     poetry config virtualenvs.create false && \
-    poetry install
+    poetry install --no-root
 
-COPY src/ ./src/
+# Теперь весь код
+COPY . .
 
-
-# Устанавливаем poetry и зависимости
-RUN pip install --upgrade pip && \
-    pip install poetry && \
-    poetry config virtualenvs.create false && \
-    poetry install
-
-# Запуск приложения (можно перенести в docker-compose при желании)
+# Запуск через poetry (лучше оставить внутри контейнера)
 CMD ["poetry", "run", "uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]

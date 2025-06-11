@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request, Depends
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from .llm.gemma_client import generate_reply, DEFAULT_CHARACTER
 from .models import ChatSession, Message

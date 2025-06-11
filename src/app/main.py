@@ -5,7 +5,7 @@ from .db import init_db
 
 app = FastAPI()
 
-@app.lifespan("startup")
+@app.on_event("startup")
 async def startup():
     await init_db()
 

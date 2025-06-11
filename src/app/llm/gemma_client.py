@@ -1,7 +1,7 @@
-import os
 import httpx
+import os
 
-LM_STUDIO_URL = os.getenv("LM_STUDIO_URL", "http://localhost:1234")
+LM_STUDIO_URL = os.getenv("LM_STUDIO_URL", "http://127.0.0.1:1234")
 LM_MODEL = os.getenv("LM_MODEL", "google/gemma-3-12b")
 
 CHARACTER_PROMPTS = {
@@ -47,9 +47,10 @@ async def generate_reply(prompt: str, character: str = DEFAULT_CHARACTER) -> str
     }
 
     try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            response = await client.post(LM_STUDIO_URL, json=payload)
+        async with httpx.AsyncClient(timeout=180) as client:
+            response = await client.post(f"{LM_STUDIO_URL}/v1/completions", json=payload)
             response.raise_for_status()
-            return response.json()["response"]
+            raw = response.json()
+            return raw["choices"][0]["text"].strip()
     except Exception as e:
         return f"[Error from Gemma client: {e}]"

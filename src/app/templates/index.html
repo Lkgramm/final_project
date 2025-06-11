@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Friends Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>💬 Чат с персонажами «Друзей»</h1>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
+    <h1 class="text-2xl font-bold mb-4">💬 Чат с персонажами «Друзей»</h1>
 
-  <form method="post">
-    <label for="prompt">Введите сообщение:</label><br>
-    <textarea name="prompt" id="prompt" rows="4" cols="60" required>{{ prompt or "" }}</textarea><br><br>
+    <form method="post" class="space-y-4">
+      <textarea name="prompt" rows="4" required
+                class="w-full border p-3 rounded" placeholder="Введите сообщение...">{{ prompt or '' }}</textarea>
 
-    <label for="character">Выберите персонажа:</label>
-    <select name="character" id="character">
-      {% for name in ['phoebe', 'ross', 'rachel', 'joey', 'chandler', 'monica'] %}
-        <option value="{{ name }}" {% if character == name %}selected{% endif %}>{{ name.title() }}</option>
+      <select name="character" class="w-full border p-2 rounded">
+        {% for name in ['phoebe', 'ross', 'rachel', 'joey', 'chandler', 'monica'] %}
+          <option value="{{ name }}" {% if character == name %}selected{% endif %}>{{ name.title() }}</option>
+        {% endfor %}
+      </select>
+
+      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Отправить</button>
+    </form>
+
+    {% if response %}
+    <div class="mt-4 bg-gray-100 p-3 rounded border">
+      <h2 class="text-sm text-gray-500 mb-1">Ответ:</h2>
+      <p class="whitespace-pre-line">{{ response }}</p>
+    </div>
+    {% endif %}
+
+    <hr class="my-6" />
+
+    <h2 class="text-lg font-semibold mb-2">📜 Недавние чаты</h2>
+    <ul class="list-disc pl-6 text-sm">
+      {% for session in sessions %}
+        <li>
+          <a href="/history_ui/{{ session.id }}" class="text-blue-600 hover:underline">
+            {{ session.character }} — {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+          </a>
+        </li>
       {% endfor %}
-    </select><br><br>
-
-    <button type="submit">Отправить</button>
-  </form>
-
-  {% if response %}
-    <hr>
-    <h2>Ответ:</h2>
-    <div style="white-space: pre-wrap;">{{ response }}</div>
-  {% endif %}
-
-  <hr>
-  <h2>Недавние чаты</h2>
-  <ul>
-    {% for session in sessions %}
-      <li>
-        <a href="/history_ui/{{ session.id }}">
-          {{ session.character }} — {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+    </ul>
+  </div>
 </body>
 </html>

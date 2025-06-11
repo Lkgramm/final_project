@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 from .db import init_db
 from .api import router as api_router
 from .web import router as web_router
+from dotenv import load_dotenv
+load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

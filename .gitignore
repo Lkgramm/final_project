@@ -1,42 +1,40 @@
-# Python
+# Byte-compiled / cache files
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.pyc
-*.egg-info/
-*.egg
-*.env
+*.pdm.toml
+
+# SQLite database
+chat.db
 *.db
 *.db-journal
 
-# Poetry
-.poetry/
-poetry.lock
-
-# Environments
+# dotenv files (если содержат токены / ключи)
 .env
-.venv
 .env.*
+
+# Poetry
+poetry.lock
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
 
 # Docker
 *.log
+Dockerfile.*
 docker-compose.override.yml
 
-# IDEs
+# Jupyter (если вдруг)
+.ipynb_checkpoints/
+
+# VSCode
 .vscode/
-.idea/
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Tests
-.coverage
-htmlcov/
-.cache/
-pytest_cache/
-
-# Build
-dist/
-build/

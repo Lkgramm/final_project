@@ -11,6 +11,8 @@ RUN pip install --upgrade pip && \
 RUN apt update && apt install curl -y
 
 COPY src/ ./src/
+COPY src/app/templates/ ./templates/
 
 ENV PYTHONPATH=/code/src
+
 CMD ["poetry", "run", "uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]

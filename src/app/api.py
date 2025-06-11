@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.llm.gemma_client import generate_reply
+from app.llm.gemma_client import generate_reply, DEFAULT_CHARACTER
+
 
 router = APIRouter()
 

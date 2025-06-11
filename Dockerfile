@@ -8,7 +8,7 @@ RUN pip install --upgrade pip && \
     poetry config virtualenvs.create false && \
     poetry install
 
-COPY . .
+COPY src/ ./src/
 
 
 # Устанавливаем poetry и зависимости

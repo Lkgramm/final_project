@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title>LLM Friends Chat</title>
   <meta charset="UTF-8">
+  <title>Friends Chat</title>
 </head>
 <body>
-  <h1>LLM Friends Chat</h1>
+  <h1>💬 Чат с персонажами «Друзей»</h1>
 
-  <form method="post" action="/chat">
-    <label>Выберите персонажа:</label>
-    <select name="character">
-      <option value="phoebe">Фиби</option>
-      <option value="ross">Росс</option>
-      <option value="monica">Моника</option>
-      <option value="joey">Джоуи</option>
-      <option value="chandler">Чендлер</option>
-      <option value="rachel">Рэйчел</option>
+  <form method="post">
+    <label for="prompt">Введите сообщение:</label><br>
+    <textarea name="prompt" id="prompt" rows="4" cols="60" required>{{ prompt or "" }}</textarea><br><br>
+
+    <label for="character">Выберите персонажа:</label>
+    <select name="character" id="character">
+      {% for name in ['phoebe', 'ross', 'rachel', 'joey', 'chandler', 'monica'] %}
+        <option value="{{ name }}" {% if character == name %}selected{% endif %}>{{ name.title() }}</option>
+      {% endfor %}
     </select><br><br>
 
-    <label>Введите сообщение:</label><br>
-    <textarea name="prompt" rows="4" cols="50"></textarea><br><br>
-
-    <input type="submit" value="Отправить">
+    <button type="submit">Отправить</button>
   </form>
 
+  {% if response %}
+    <hr>
+    <h2>Ответ:</h2>
+    <div style="white-space: pre-wrap;">{{ response }}</div>
+  {% endif %}
+
   <hr>
-  <h2>Истории чатов</h2>
+  <h2>Недавние чаты</h2>
   <ul>
     {% for session in sessions %}
       <li>
-        <a href="/history_ui/{{ session.id }}">{{ session.character }} — {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</a>
+        <a href="/history_ui/{{ session.id }}">
+          {{ session.character }} — {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}
+        </a>
       </li>
     {% endfor %}
   </ul>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>История чата</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h2>История чата ({{ session_id }})</h2>
+  <ul>
+    {% for message in messages %}
+      <li><strong>{{ message.role }}</strong>: {{ message.content }}<br><small>{{ message.timestamp }}</small></li>
+    {% endfor %}
+  </ul>
+  <a href="/">Назад</a>
+</body>
+</html>

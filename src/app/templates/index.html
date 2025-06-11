@@ -1,46 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Friends LLM Chat</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>LLM Friends Chat</title>
+  <meta charset="UTF-8">
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
-  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-xl">
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">💬 Friends AI Chat</h1>
-    <form method="post" class="space-y-4">
-      <div>
-        <label for="prompt" class="block text-sm font-medium text-gray-700">Ваш запрос</label>
-        <textarea id="prompt" name="prompt" rows="4" required
-                  class="mt-1 block w-full p-3 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Например: Расскажи шутку в стиле Джоуи">{{ prompt or '' }}</textarea>
-      </div>
+<body>
+  <h1>LLM Friends Chat</h1>
 
-      <div>
-        <label for="character" class="block text-sm font-medium text-gray-700">Персонаж</label>
-        <select id="character" name="character"
-                class="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-          {% for name in ['phoebe', 'ross', 'rachel', 'joey', 'chandler', 'monica'] %}
-          <option value="{{ name }}" {% if character == name %}selected{% endif %}>
-            {{ name.title() }}
-          </option>
-          {% endfor %}
-        </select>
-      </div>
+  <form method="post" action="/chat">
+    <label>Выберите персонажа:</label>
+    <select name="character">
+      <option value="phoebe">Фиби</option>
+      <option value="ross">Росс</option>
+      <option value="monica">Моника</option>
+      <option value="joey">Джоуи</option>
+      <option value="chandler">Чендлер</option>
+      <option value="rachel">Рэйчел</option>
+    </select><br><br>
 
-      <button type="submit"
-              class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition">
-        Отправить
-      </button>
-    </form>
+    <label>Введите сообщение:</label><br>
+    <textarea name="prompt" rows="4" cols="50"></textarea><br><br>
 
-    {% if response %}
-    <div class="mt-6 bg-gray-100 p-4 rounded-md border border-gray-300">
-      <h2 class="text-sm text-gray-500 mb-2">Ответ:</h2>
-      <p class="text-gray-800 whitespace-pre-line">{{ response }}</p>
-    </div>
-    {% endif %}
-  </div>
+    <input type="submit" value="Отправить">
+  </form>
+
+  <hr>
+  <h2>Истории чатов</h2>
+  <ul>
+    {% for session in sessions %}
+      <li>
+        <a href="/history_ui/{{ session.id }}">{{ session.character }} — {{ session.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</a>
+      </li>
+    {% endfor %}
+  </ul>
 </body>
 </html>

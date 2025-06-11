@@ -8,6 +8,8 @@ RUN pip install --upgrade pip && \
     poetry config virtualenvs.create false && \
     poetry install --no-root
 
+RUN apt update && apt install curl -y
+
 COPY . .
 
 ENV PYTHONPATH=/code/src
